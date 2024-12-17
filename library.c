@@ -24,10 +24,12 @@ void add_book();
 void view_books();
 void borrow_book();
 void return_book();
+void delete_book();
 void load_books();
 void load_users();
 void save_books();
 void save_users();
+
 
 // 全局变量存储图书和用户信息
 Book books[100];
@@ -126,7 +128,7 @@ void admin_system() {
     switch (choice) {
         case 1: add_book(); break;
         case 2: view_books(); break;
-        case 3: printf("删除图书功能暂未实现。\n"); break;
+        case 3: delete_book(); break;
         case 4: return;
         default: printf("无效选择！\n");
     }
@@ -236,3 +238,28 @@ void return_book() {
     }
     printf("用户没有借此图书！\n");
 }
+
+// 删除图书
+void delete_book() {
+    int book_id;
+    printf("请输入要删除的图书ID: ");
+    scanf("%d", &book_id);
+
+    int found = 0;  // 用来判断图书是否找到
+    for (int i = 0; i < book_count; i++) {
+        if (books[i].id == book_id) {
+            found = 1;
+            // 删除图书，后面的元素前移
+            for (int j = i; j < book_count - 1; j++) {
+                books[j] = books[j + 1];
+            }
+            book_count--;  // 更新图书数量
+            printf("图书已删除！\n");
+            break;
+        }
+    }
+    if (!found) {
+        printf("未找到该图书！\n");
+    }
+}
+
