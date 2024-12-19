@@ -170,6 +170,30 @@ void add_book() {
     printf("图书添加成功！\n");
 }
 
+// 删除图书
+void delete_book() {
+    int book_id;
+    printf("请输入要删除的图书ID: ");
+    scanf("%d", &book_id);
+
+    int found = 0;  // 用来判断图书是否找到
+    for (int i = 0; i < book_count; i++) {
+        if (books[i].id == book_id) {
+            found = 1;
+            // 删除图书，后面的元素前移
+            for (int j = i; j < book_count - 1; j++) {
+                books[j] = books[j + 1];
+            }
+            book_count--;  // 更新图书数量
+            printf("图书已删除！\n");
+            break;
+        }
+    }
+    if (!found) {
+        printf("未找到该图书！\n");
+    }
+}
+
 // 查看所有图书
 void view_books() {
     for (int i = 0; i < book_count; i++) {
@@ -239,27 +263,4 @@ void return_book() {
     printf("用户没有借此图书！\n");
 }
 
-// 删除图书
-void delete_book() {
-    int book_id;
-    printf("请输入要删除的图书ID: ");
-    scanf("%d", &book_id);
-
-    int found = 0;  // 用来判断图书是否找到
-    for (int i = 0; i < book_count; i++) {
-        if (books[i].id == book_id) {
-            found = 1;
-            // 删除图书，后面的元素前移
-            for (int j = i; j < book_count - 1; j++) {
-                books[j] = books[j + 1];
-            }
-            book_count--;  // 更新图书数量
-            printf("图书已删除！\n");
-            break;
-        }
-    }
-    if (!found) {
-        printf("未找到该图书！\n");
-    }
-}
 
